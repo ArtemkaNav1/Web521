@@ -9,26 +9,31 @@
 
 <body>
     <h3>
-        9. Фильтрация данных о пользователях:
+        10.Обработка данных о задачах:
         ● Задача: У вас есть массив объектов, представляющих собой
-        данные о пользователях. Каждый объект содержит информацию о
-        возрасте, имени и статусе подписки (активна или нет).
-        Используйте метод filter, чтобы получить список пользователей с
-        активной подпиской и возрастом старше 30 лет.
-        ● Пример: [{name: 'Alice', age: 28, isSubscribed: true}, {name:
-        'Bob', age: 35, isSubscribed: false}, ...]
+        список задач. Каждый объект содержит информацию о названии
+        задачи, её статусе (выполнена или нет) и приоритете (высокий,
+        средний, низкий). Используйте метод forEach, чтобы вывести в
+        консоль все задачи с высоким приоритетом, которые еще не
+        выполнены.
+        ● Пример: [{task: 'Write report', status: 'completed', priority:
+        'high'}, {task: 'Send email', status: 'pending', priority:
+        'low'}, ...]
     </h3>
 
     <?php
-    $users = [
-        ['name' => 'Alice', 'age' => 28, 'isSubscribed' => true],
-        ['name' => 'Bob', 'age' => 35, 'isSubscribed' => false],
-        ['name' => 'Charlie', 'age' => 40, 'isSubscribed' => true],
+
+    $tasks = [
+        ['task' => 'Write report', 'status' => 'completed', 'priority' => 'high'],
+        ['task' => 'Send email', 'status' => 'pending', 'priority' => 'low'],
+        ['task' => 'Fix bug', 'status' => 'pending', 'priority' => 'high'],
     ];
 
-    $filtered = array_filter($users, fn($user) => $user['isSubscribed'] && $user['age'] > 30);
-
-    print_r(array_values($filtered));
+    array_walk($tasks, function ($task) {
+        if ($task['priority'] === 'high' && $task['status'] !== 'completed') {
+            echo $task['task'] . PHP_EOL;
+        }
+    });
     ?>
 </body>
 
