@@ -9,30 +9,16 @@
 
 <body>
     <h3>
-        10.Обработка данных о задачах:
-        ● Задача: У вас есть массив объектов, представляющих собой
-        список задач. Каждый объект содержит информацию о названии
-        задачи, её статусе (выполнена или нет) и приоритете (высокий,
-        средний, низкий). Используйте метод forEach, чтобы вывести в
-        консоль все задачи с высоким приоритетом, которые еще не
-        выполнены.
-        ● Пример: [{task: 'Write report', status: 'completed', priority:
-        'high'}, {task: 'Send email', status: 'pending', priority:
-        'low'}, ...]
+        1. Конкатенация: вывод на страницу («Hello! My name
+        is 'Name'»), где «Name» — это переменная, в которую
+        вводится имя (выводится на странице в кавычках).
     </h3>
 
     <?php
-    $tasks = [
-        ['task' => 'Write report', 'status' => 'completed', 'priority' => 'high'],
-        ['task' => 'Send email', 'status' => 'pending', 'priority' => 'low'],
-        ['task' => 'Fix bug', 'status' => 'pending', 'priority' => 'high'],
-    ];
-
-    array_walk($tasks, function ($task) {
-        if ($task['priority'] === 'high' && $task['status'] !== 'completed') {
-            echo $task['task'] . PHP_EOL;
-        }
-    });
+    echo "1. " ;
+    $name = "Артём"; //  Имя
+    
+    echo "Hello! My name is '" . $name . "'";
     ?>
 </body>
 
