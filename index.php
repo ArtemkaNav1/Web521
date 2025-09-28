@@ -8,67 +8,42 @@
 </head>
 
 <body>
-    <h3>
-        1. Конкатенация: вывод на страницу («Hello! My name
-        is 'Name'»), где «Name» — это переменная, в которую
-        вводится имя (выводится на странице в кавычках).
-        <br>
-        2. Добавить к заданию 1 фразу «I’m Age», где Age — это
-        переменная с возрастом студента (выводится с новой
-        строки).
-        <br>
-        3. В задание 3 из практических добавить вывод действий в таком формате: 'a'+'b'='rez', где a — это значение
-        1-й переменной, b — это значение 2-й переменной,
-        rez — результат операции между ними
-        <br>
-        4. Поменять 2 числа местами без использования 3-й переменной
-        <br>
-        5. Разработать php-страницу, в которой выбрать правильные html-элементы и вывести 3 вопроса в следующем формате:
-        a) 1 — вопрос с 4 вариантами ответа и только 1 из
-        них правильный;
-        b) 2 — вопрос с 4 вариантами ответа и может быть
-        несколько правильных;
-        c) 3 — вопрос с развернутым ответом
-    </h3>
 
     <?php
-    echo "<tr><td><b>Задание 1:</b><br>:";
-    $name = "Артём"; //  Имя
-    
-    echo "Hello! My name is '" . $name . "'" . "<br>";
+    echo "Задание 1:";
+    function generateRandomArray($count_elem, $min_val, $max_val)
+    {
 
-    echo "<tr><td><b>Задание 2:</b><br>:";
-    $name = "Артём";
-    $age = 32;
+        if ($min_val > $max_val) {
+            $temp = $min_val;
+            $min_val = $max_val;
+            $max_val = $temp;
+        }
+        $result = array();
+        for ($i = 0; $i < $count_elem; $i++) {
+            $result[] = rand($min_val, $max_val);
+        }
 
-    echo "Hello! My name is '" . $name . "'" . "<br>";
-    echo "I'm $age" . "<br>";
+        return $result;
+    }
 
-    echo "<tr><td><b>Задание 3:</b><br>";
-    $a = 10;
-    $b = 5;
+    $count = 6;
+    $min = 3;
+    $max = 10;
 
-    //Операции
-    echo "'$a' + '$b' = '" . ($a + $b) . "'<br>";
-    echo "'$a' - '$b' = '" . ($a - $b) . "'<br>";
-    echo "'$a' * '$b' = '" . ($a * $b) . "'<br>";
-    echo "'$a' / '$b' = '" . ($a / $b) . "'<br>";
+    $randomArray = generateRandomArray($count, $min, $max);
 
-    echo "<tr><td><b>Задание 4:</b><br>";
-
-    $a = 2;
-    $b = 10;
-    echo "Было: первое число = $a, второе число = $b <br>";
-    $a = $a + $b;
-    $b = $a - $b;
-    $a = $a - $b;
-    echo "Стало: первое число = $a, второе число = $b<br/>";
-
-
-    
-
-
+    echo "<html>";
+    echo "<head></head>";
+    echo "<body>";
+    echo "<h2>Count: $count</h2>";
+    echo "<h3>Min: $min</h3>";
+    echo "<h3>Max: $max</h3>";
+    echo "<h2>Output: " . implode(', ', $randomArray) . "</h2>";
+    echo "</body>";
+    echo "</html>";
     ?>
+
 </body>
 
 </html>
