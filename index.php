@@ -10,7 +10,9 @@
 <body>
 
     <?php
-    echo "Задание 1:";
+    // Задание 1: 
+
+    echo "<h2> Задание 1 <h2>";
     function generateRandomArray($count_elem, $min_val, $max_val)
     {
 
@@ -42,6 +44,20 @@
     echo "<h2>Output: " . implode(', ', $randomArray) . "</h2>";
     echo "</body>";
     echo "</html>";
+
+    // Задание 2:
+
+    echo "<h2> Задание 2<h2>";
+    function power($base, $exponent)
+    {
+        return pow($base, $exponent);
+    }
+
+    $base = 5;
+    $exponent = 12;
+    $result = power($base, $exponent);
+
+    echo "" . $base . "^" . $exponent . " = " . $result . " ";
     ?>
 
 </body>
