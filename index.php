@@ -35,6 +35,40 @@
     echo "Продукты: " . implode(", ", $category->list_products);
 
 
+    // Задание 2:
+
+    echo "<h1>Задание 2:</h1>";
+
+    class Category2
+    {
+
+        // В данном задании используем private. 
+        private $name;
+        private $list_products;
+
+        public function __construct($name, $list_products = [])
+        {
+            $this->name = $name;
+            $this->list_products = $list_products;
+        }
+
+        public function getCategoryName()
+        {
+            return $this->name;
+        }
+
+        public function getCategoryProducts()
+        {
+            return $this->list_products;
+        }
+    }
+
+
+    $category = new Category2("Автомобили", ["Lada Vesta", "Renault Logan 2", "Mercedes-Benz S-класс "]);
+
+    echo "Категория: " . $category->getCategoryName() . "<br>";
+    echo "Продукты: " . implode(", ", $category->getCategoryProducts());
+
     ?>
 </body>
 
