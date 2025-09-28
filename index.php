@@ -85,6 +85,71 @@
     echo "</body>";
     echo "</html>";
 
+    // Задание 4:
+    
+    echo "<h1> Задание 4<h1>";
+
+    function calculateExpression($expression)
+    {
+        $expression = str_replace(' ', '', $expression);
+
+        preg_match_all('/(\d+|[+\-*\/])/', $expression, $matches);
+        $tokens = $matches[0];
+
+        $result = [];
+        $i = 0;
+        $count = count($tokens);
+
+        while ($i < $count) {
+            if (isset($tokens[$i + 1]) && in_array($tokens[$i + 1], ['*', '/'])) {
+                $left = (float) $tokens[$i];
+                $operator = $tokens[$i + 1];
+                $right = (float) $tokens[$i + 2];
+
+                if ($operator == '*') {
+                    $result[] = $left * $right;
+                } else if ($operator == '/') {
+                    if ($right == 0) {
+                        return "Ошибка: деление на ноль";
+                    }
+                    $result[] = $left / $right;
+                }
+
+                $i += 3;
+            } else {
+                $result[] = $tokens[$i];
+                $i++;
+            }
+        }
+
+        $finalResult = (float) $result[0];
+        $countResult = count($result);
+
+        for ($i = 1; $i < $countResult; $i += 2) {
+            if (isset($result[$i]) && isset($result[$i + 1])) {
+                $operator = $result[$i];
+                $number = (float) $result[$i + 1];
+
+                if ($operator == '+') {
+                    $finalResult += $number;
+                } else if ($operator == '-') {
+                    $finalResult -= $number;
+                }
+            }
+        }
+
+        return $finalResult;
+    }
+
+    $expression = "3+8*9-2*3";
+    $result = calculateExpression($expression);
+
+    echo "<html>";
+    echo "<head></head>";
+    echo "<body>";
+    echo "<h1>$expression=$result</h1>";
+    echo "</body>";
+    echo "</html>";
     ?>
 
 </body>
