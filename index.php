@@ -150,6 +150,70 @@
     echo "<h1>$expression=$result</h1>";
     echo "</body>";
     echo "</html>";
+
+    // Задание 5:
+    
+    echo "<h1> Задание 5<h1>";
+
+
+
+    function calculateSimple($expr)
+    {
+        preg_match_all('/(\d+|[+\-*\/])/', $expr, $matches);
+        $tokens = $matches[0];
+
+        for ($i = 0; $i < count($tokens); $i++) {
+            if ($tokens[$i] == '*' || $tokens[$i] == '/') {
+                $a = (float) $tokens[$i - 1];
+                $b = (float) $tokens[$i + 1];
+
+                if ($tokens[$i] == '*') {
+                    $result = $a * $b;
+                } else {
+                    if ($b == 0)
+                        return "Error: division by zero";
+                    $result = $a / $b;
+                }
+
+                array_splice($tokens, $i - 1, 3, [$result]);
+                $i--;
+            }
+        }
+
+        $result = (float) $tokens[0];
+        for ($i = 1; $i < count($tokens); $i += 2) {
+            if ($tokens[$i] == '+') {
+                $result += (float) $tokens[$i + 1];
+            } else if ($tokens[$i] == '-') {
+                $result -= (float) $tokens[$i + 1];
+            }
+        }
+
+        return $result;
+    }
+
+    function calculateExpressionWithBrackets($expression)
+    {
+        $expression = str_replace(' ', '', $expression);
+
+        
+        while (preg_match('/\(([^()]+)\)/', $expression, $match)) {
+            $inner = calculateSimple($match[1]);
+            $expression = str_replace($match[0], $inner, $expression);
+        }
+
+        return calculateSimple($expression);
+    }
+
+    $expression = "(23+8)*(9-231*32)";
+    $result = calculateExpressionWithBrackets($expression);
+
+    echo "<html>";
+    echo "<head></head>";
+    echo "<body>";
+    echo "<h1>$expression=$result</h1>";
+    echo "</body>";
+    echo "</html>";
     ?>
 
 </body>
