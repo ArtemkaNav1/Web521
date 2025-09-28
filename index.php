@@ -11,8 +11,8 @@
 
     <?php
     // Задание 1: 
-
-    echo "<h2> Задание 1 <h2>";
+    
+    echo "<h1> Задание 1 <h1>";
     function generateRandomArray($count_elem, $min_val, $max_val)
     {
 
@@ -46,8 +46,8 @@
     echo "</html>";
 
     // Задание 2:
-
-    echo "<h2> Задание 2<h2>";
+    
+    echo "<h1> Задание 2<h1>";
     function power($base, $exponent)
     {
         return pow($base, $exponent);
@@ -58,6 +58,33 @@
     $result = power($base, $exponent);
 
     echo "" . $base . "^" . $exponent . " = " . $result . " ";
+
+
+    // Задание 3:
+    
+    echo "<h1> Задание 3<h1>";
+    function swap(&$a, &$b)
+    {
+        $temp = $a;
+        $a = $b;
+        $b = $temp;
+    }
+
+    $first = 3;
+    $second = 13;
+
+    echo "<html>";
+    echo "<head></head>";
+    echo "<body>";
+    echo "<h1>First: $first; Second: $second</h1>";
+
+    // Меняем местами
+    swap($first, $second);
+
+    echo "<h1>First: $first; Second: $second</h1>";
+    echo "</body>";
+    echo "</html>";
+
     ?>
 
 </body>
