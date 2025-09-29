@@ -1,75 +1,168 @@
+<?php
+session_start();
+
+
+if (isset($_POST['clear_all'])) {
+    session_destroy();
+    session_start();
+    $_SESSION['categories'] = [];
+    $_SESSION['products'] = [];
+}
+
+
+if (!isset($_SESSION['categories'])) {
+    $_SESSION['categories'] = [];
+}
+if (!isset($_SESSION['products'])) {
+    $_SESSION['products'] = [];
+}
+
+
+if (isset($_POST['padd'])) {
+    $name = trim($_POST['pName'] ?? '');
+    $price = trim($_POST['pPrice'] ?? '');
+
+    if ($name != "" && $price != "") {
+        $_SESSION['products'][] = ["name" => $name, "price" => $price];
+    }
+}
+
+
+if (isset($_POST['cadd'])) {
+    $catName = trim($_POST['catName'] ?? '');
+    if ($catName != "") {
+        
+        $_SESSION['categories'][$catName] = $_SESSION['products'];
+        
+        $_SESSION['products'] = [];
+    }
+}
+
+
+function findCategory($categories, $name)
+{
+    foreach ($categories as $catName => $products) {
+        if (strtolower($catName) === strtolower($name)) {
+            return [$catName, $products];
+        }
+    }
+    return null;
+}
+
+
+$foundCategory = null;
+if (isset($_POST['search'])) {
+    $searchName = trim($_POST['searchName'] ?? '');
+    if ($searchName != "") {
+        $foundCategory = findCategory($_SESSION['categories'], $searchName);
+    }
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Категории и продукты</title>
+    <style>
+        .clear-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .clear-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
 </head>
 
 <body>
-    <h3>
 
-    </h3>
+    <form method="post">
+        <input type="submit" name="clear_all" value="Очистить всё" class="clear-btn"
+            onclick="return confirm('Вы уверены, что хотите очистить все данные?')">
+    </form>
+
+
+    <form method="post">
+        <table>
+
+            <tr>
+                <td><input type="text" name="pName" placeholder="Name"></td>
+                <td><input type="text" name="pPrice" placeholder="Price"></td>
+                <td><input type="submit" value="Add" name="padd"></td>
+            </tr>
+        </table>
+    </form>
 
     <?php
-
-    // Задание 1:
-    echo "<h1>Задание 1</h1>";
-    class Category
-    {
-        // Используем свойства public, т.е обращаемся напрямую.
-        public $name;
-        public $list_products;
-
-        public function __construct($name, $list_products = [])
-        {
-            $this->name = $name;
-            $this->list_products = $list_products;
+    if (!empty($_SESSION['products'])) {
+        foreach ($_SESSION['products'] as $product) {
+            echo $product['name'] . " — " . $product['price'] . "<br>";
         }
+    } else {
+        echo "Нет продуктов<br>";
     }
-
-    $category = new Category("Автомобили", ["Lada Vesta", "Renault Logan 2", "Mercedes-Benz S-класс "]);
-
-    echo "Категория: " . $category->name . "<br>";
-    echo "Продукты: " . implode(", ", $category->list_products);
-
-
-    // Задание 2:
-
-    echo "<h1>Задание 2:</h1>";
-
-    class Category2
-    {
-
-        // В данном задании используем private. 
-        private $name;
-        private $list_products;
-
-        public function __construct($name, $list_products = [])
-        {
-            $this->name = $name;
-            $this->list_products = $list_products;
-        }
-
-        public function getCategoryName()
-        {
-            return $this->name;
-        }
-
-        public function getCategoryProducts()
-        {
-            return $this->list_products;
-        }
-    }
-
-
-    $category = new Category2("Автомобили", ["Lada Vesta", "Renault Logan 2", "Mercedes-Benz S-класс "]);
-
-    echo "Категория: " . $category->getCategoryName() . "<br>";
-    echo "Продукты: " . implode(", ", $category->getCategoryProducts());
-
     ?>
+
+    <hr>
+
+
+    <form method="post">
+        <input type="text" name="searchName" placeholder="Search">
+        <input type="submit" value="Search" name="search">
+    </form>
+
+
+    <h3>Categories</h3>
+    <form method="post">
+        <input type="text" name="catName" placeholder="Name">
+        <input type="submit" value="Add" name="cadd">
+    </form>
+
+
+    <?php
+    if (!empty($_SESSION['categories'])) {
+        foreach ($_SESSION['categories'] as $catName => $products) {
+            echo "<h4>$catName</h4>";
+            if (!empty($products)) {
+                foreach ($products as $product) {
+                    if (is_array($product) && isset($product['name']) && isset($product['price'])) {
+                        echo $product['name'] . " — " . $product['price'] . "<br>";
+                    }
+                }
+            } else {
+                echo "(нет продуктов)<br>";
+            }
+        }
+    } else {
+        echo "Нет категорий<br>";
+    }
+    ?>
+
+
+    <?php
+    if ($foundCategory !== null) {
+        echo "<hr><h3>Результат поиска:</h3>";
+        echo "<b>{$foundCategory[0]}</b><br>";
+        if (is_array($foundCategory[1]) && !empty($foundCategory[1])) {
+            foreach ($foundCategory[1] as $product) {
+                if (is_array($product) && isset($product['name']) && isset($product['price'])) {
+                    echo $product['name'] . " — " . $product['price'] . "<br>";
+                }
+            }
+        } else {
+            echo "(нет продуктов)<br>";
+        }
+    } elseif (isset($_POST['search'])) {
+        echo "<hr><h3>Результат поиска:</h3> Категория не найдена.";
+    }
+    ?>
+
 </body>
 
 </html>
