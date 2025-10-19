@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-    
+
     </style>
 </head>
 
 <body>
-  
-  <h2>Сотрудники компаний: </h2>
+
+    <h2>Сотрудники компаний: </h2>
 
     <?php
 
     // Задание 1:
-
+    
     echo "<h2>Задание 1</h2>";
     $employees = [
         ['name' => 'Serhii', 'company' => 'Microsoft', 'position' => 'Developer'],
@@ -32,7 +32,7 @@
         ['name' => 'Iryna', 'company' => 'ITStep', 'position' => 'Teacher']
     ];
 
-    
+
     foreach ($employees as $employee) {
         echo "<p>{$employee['name']}</strong> is working in {$employee['company']} on position: {$employee['position']}</p>";
     }
@@ -40,10 +40,10 @@
 
 
     // Задание 2:
-
+    
     echo "<h2>Задание 2</h2>";
 
-     $employees = [
+    $employees = [
         ['name' => 'Serhii', 'company' => 'Microsoft', 'position' => 'Developer'],
         ['name' => 'Oleh', 'company' => 'Apple', 'position' => 'QC Engineer'],
         ['name' => 'Olya', 'company' => 'Amazon', 'position' => 'Project Manager'],
@@ -56,7 +56,6 @@
         ['name' => 'Iryna', 'company' => 'ITStep', 'position' => 'Teacher']
     ];
 
-    // Группируем сотрудников по компаниям
     $companies = [];
     foreach ($employees as $employee) {
         $companyName = $employee['company'];
@@ -66,7 +65,7 @@
         $companies[$companyName][] = $employee['name'];
     }
 
-    // Выводим сгруппированный список
+
     echo "<ul>";
     foreach ($companies as $company => $employeesList) {
         echo "<li><strong>$company</strong>";
@@ -81,11 +80,27 @@
 
     echo "<hr>";
 
+    // Задание 3----------------------------------------------------------------------------------------------------:
+    
+    echo "<h2>Задание 3</h2>";
 
+    $numbers = [1];
+    
+    for ($i = 1; $i < 10; $i++) {
+        $previous = $numbers[$i - 1];
+
+        $nextNumber = rand($previous + 1, $previous + 100);
+
+        $numbers[] = $nextNumber;
+    }
+
+    echo "<p>" . implode(', ', $numbers) . "</p>";
+
+    echo "<hr>";
     ?>
-    
-    
-   
+
+
+
 </body>
 
 </html>
