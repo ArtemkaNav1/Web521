@@ -123,6 +123,47 @@
 
         echo "<p>" . number_format($number, 12, '.', '') . " rounded to $precision: $rounded</p>";
     }
+    echo "<hr>";
+
+
+
+    // Задание 5---------------------------------------------------------------------------------------------------:
+    
+    echo "<h2>Задание 5</h2>";
+
+    $matrix = array_fill(0, 5, []);
+    for ($i = 0; $i < 5; $i++) {
+        for ($j = 0; $j < 5; $j++) {
+            $matrix[$i][$j] = rand(10, 100);
+        }
+    }
+
+    $minInColumns = [];
+    for ($col = 0; $col < 5; $col++) {
+        $column = array_column($matrix, $col);
+        $minInColumns[$col] = min($column);
+    }
+
+    echo "<div style='font-family: monospace;'>";
+    foreach ($matrix as $row) {
+        echo "<p style='margin: 5px;'>";
+        $output = [];
+        foreach ($row as $colIndex => $value) {
+            if ($value == $minInColumns[$colIndex]) {
+                $output[] = "<span style='color: red; font-weight: bold;'>$value</span>";
+            } else {
+                $output[] = $value;
+            }
+        }
+        echo implode(", ", $output) . "</p>";
+    }
+    echo "</div>";
+
+    $totalMin = array_sum($minInColumns);
+    $averageMin = $totalMin / 5;
+
+    echo "<p style='font-weight: bold; margin-top: 10px;'>Sum of the minimums: $totalMin</p>";
+   
 
     ?>
 
