@@ -85,7 +85,7 @@
     echo "<h2>Задание 3</h2>";
 
     $numbers = [1];
-    
+
     for ($i = 1; $i < 10; $i++) {
         $previous = $numbers[$i - 1];
 
@@ -97,6 +97,33 @@
     echo "<p>" . implode(', ', $numbers) . "</p>";
 
     echo "<hr>";
+
+
+    // Задание 4---------------------------------------------------------------------------------------------------:
+    
+    echo "<h2>Задание 4</h2>";
+
+    $numbers = [
+        [3.534534534545, 2],
+        [100.5, 4],
+        [1.2545, 2],
+        [5.5486, 3],
+        [8.78754, 0],
+        [12.3456789, 4],
+        [7.499999, 1],
+        [99.9999, 2],
+        [0.005, 2],
+        [123.4567, 1]
+    ];
+
+    foreach ($numbers as $item) {
+        $number = $item[0];
+        $precision = $item[1];
+        $rounded = round($number, $precision);
+
+        echo "<p>" . number_format($number, 12, '.', '') . " rounded to $precision: $rounded</p>";
+    }
+
     ?>
 
 
